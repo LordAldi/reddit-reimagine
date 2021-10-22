@@ -25,7 +25,12 @@ const main = async () => {
   await orm.getMigrator().up();
 
   const app = express();
-  app.use(cors());
+  app.use(
+    cors({
+      origin: "http://localhost:3000",
+      credentials: true,
+    })
+  );
 
   const RedisStore = connectRedis(session);
   const redisClient = redis.createClient();
@@ -58,7 +63,7 @@ const main = async () => {
     plugins: [ApolloServerPluginLandingPageGraphQLPlayground({})],
   });
   await apolloServer.start();
-  apolloServer.applyMiddleware({ app });
+  apolloServer.applyMiddleware({ app, cors: false });
   app.listen(4000, () => {
     console.log("Server started at port 4000");
   });
