@@ -12,7 +12,7 @@ import connectRedis from "connect-redis";
 import cors from "cors";
 import { ApolloServerPluginLandingPageGraphQLPlayground } from "apollo-server-core";
 import { MyContext } from "./types";
-import { __prod__ } from "./constants";
+import { COOKIE_NAME, __prod__ } from "./constants";
 import microConfig from "./mikro-orm.config";
 
 declare module "express-session" {
@@ -48,7 +48,7 @@ const main = async () => {
         secure: __prod__, //cookie only works in https
       },
       saveUninitialized: false,
-      name: "qid",
+      name: COOKIE_NAME,
       secret: "ksncoanvcsldksncuuusoeddjskklnsdj",
       resave: false,
     })
